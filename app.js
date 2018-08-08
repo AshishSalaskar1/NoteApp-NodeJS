@@ -5,13 +5,21 @@ const os = require("os");
 const _ = require("lodash");
 const yargs = require("yargs")
 
-const note = require("./note.js");
+const notes = require("./note.js");
 const argv = yargs.argv;
 // const command = process.argv[2];
 const command = argv._[0];
 
 if(command === "add"){
-        note.addNote(argv.title,argv.body);
+        var note = notes.addNote(argv.title,argv.body);
+        if(note){
+                console.log("Note Created");
+                console.log(`Title: ${note.title}`);
+                console.log(`Body: ${note.body}`);
+        }
+        else{
+                console.log("Note title already taken. Couldn't create the note");
+        }
 }
 else if(command === "list"){
         note.listNotes();
