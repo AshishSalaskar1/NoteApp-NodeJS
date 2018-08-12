@@ -1,10 +1,12 @@
-console.log("Starting note.js");
-
 const fs = require("fs");
+
+let displayNote = (note) => {
+    console.log(`\nNote read Succesfully\nTitle: ${note.title}\nBody: ${note.body}`);
+};
 
 let fetchNotes = () => {
     try{
-        var noteString = JSON.parse(fs.readFileSync("notes-data.json"));
+        let noteString = JSON.parse(fs.readFileSync("notes-data.json"));
       
         return noteString;
         }
@@ -27,7 +29,7 @@ let addNote = (title,body) => {
         body
     };
 
-    var duplicateNotes = notes.filter((note) => note.title === title);
+    let duplicateNotes = notes.filter((note) => note.title === title);
 
     if(duplicateNotes.length === 0){
         notes.push(note);
@@ -38,14 +40,27 @@ let addNote = (title,body) => {
 
 let listNotes = () => {
     console.log("List all the notes");
+    return fetchNotes();
 }; 
 
 let removeNote = (title) => {
-    console.log("Remove Node",title);
+    console.log("Removing Note",title);
+    let allNotes = fetchNotes();
+    let newNotesAFterDelete = allNotes.filter((note) => note.title !== title);
+    saveNote(newNotesAFterDelete);
+    // check and return true if note was removed
+    return allNotes.length !== newNotesAFterDelete.length;
+    
 }; 
 
 let readNote = (title) => {
-    console.log("Read Node",title);
+    console.log("Reading Node",title);
+
+    let allNotes = fetchNotes();
+    let readNode = allNotes.filter((node) => node.title === title);
+    if(readNode.length === 1){
+        return readNode[0];
+    }
 }; 
 
 module.exports = {
@@ -53,6 +68,7 @@ module.exports = {
     addNote,
     removeNote,
     readNote,
-    listNotes
+    listNotes,
+    displayNote
 
 };
