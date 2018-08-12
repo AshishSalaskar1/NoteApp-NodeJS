@@ -2,8 +2,8 @@
 A simple Command Line app made with NodeJS
 
 ## Running the app
-- cd into the NoteApp-NodeJS folder 
-- run `npm install` to install all the required dependencies automatically
+- Open your Terminal and `cd` into the NoteApp-NodeJS directory. 
+- Run `npm init` and then `npm install` to install all the required dependencies.
 - Run the code: `node app.js `
 
 ## Option
